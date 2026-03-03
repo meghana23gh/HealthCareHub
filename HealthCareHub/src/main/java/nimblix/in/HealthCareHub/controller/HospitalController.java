@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/hospital")
+@RequestMapping("/api/hospital//staff/{id}")
 @RequiredArgsConstructor
 public class HospitalController {
 
@@ -67,6 +67,15 @@ public class HospitalController {
             return ResponseEntity.internalServerError()
                     .body("Unable to add staff");
         }
+    }
+    @PutMapping("/staff/{id}")
+    public ResponseEntity<Staff> updateStaffRole(
+            @PathVariable Long id,
+            @RequestParam(required = false) String designation,
+            @RequestParam(required = false) String department) {
+
+        return ResponseEntity.ok(
+                staffService.updateStaffRole(id, designation, department));
     }
 }
 

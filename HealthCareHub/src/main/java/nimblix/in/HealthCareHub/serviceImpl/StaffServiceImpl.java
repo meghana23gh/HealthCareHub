@@ -58,6 +58,26 @@ public class StaffServiceImpl implements StaffService {
 
         return staffRepository.save(staff);
     }
+    @Override
+    public Staff updateStaffRole(Long id, String designation, String department) {
+
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Invalid staff ID");
+        }
+
+        Staff staff = staffRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Staff not found"));
+
+        if (designation != null && !designation.trim().isEmpty()) {
+            staff.setDesignation(designation);
+        }
+
+        if (department != null && !department.trim().isEmpty()) {
+            staff.setDepartment(department);
+        }
+
+        return staffRepository.save(staff);
+    }
 }
 
 
